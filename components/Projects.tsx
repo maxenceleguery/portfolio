@@ -10,7 +10,8 @@ interface Project {
   image: string;
   features: string[];
   technologies: string[];
-  githubUrl: string;
+  githubUrl?: string;
+  siteUrl?: string;
   category: 'graphics' | 'ai' | 'game' | 'web';
   reference?: {
     title: string;
@@ -99,6 +100,35 @@ export default function Projects({ activeAccordion, toggleAccordion }: ProjectsP
       ],
       technologies: ['C++', 'OpenGL', 'GLFW', 'Game Development', '3D Graphics'],
       githubUrl: 'https://github.com/maxenceleguery/tetris'
+    },
+    {
+      id: 'tabichan',
+      title: 'Tabichan, an AI-Driven Travel Planner',
+      description: 'Tabichan brings your travel ideas to life. Easily find the best travel experiences by chatting with Tabichan.',
+      image: '/tabichan.png',
+      category: 'web',
+      features: [
+        "Simply ask Tabichan where you want to go, what you want to do, or even just how you're feeling.",
+        "Tabichan instantly suggests unique tourist spots you've never seen before, tailored to your preferences.",
+        'Choose your favorite plan, book, and enjoy the best trip ever!'
+      ],
+      technologies: ['Python Smolagents', 'Agentic AI', 'NextJS', 'React', 'Docker', 'AWS'],
+      siteUrl: 'https://podtech-ai.com'
+    },
+    {
+      id: 'parts_selection',
+      title: 'Parts selection application',
+      description: 'Leverage specialized large language models to instantly recommend optimal parts from vast component databases. Our AI agent understands your requirements and finds the perfect match.',
+      image: '/parts_selection.png',
+      category: 'web',
+      features: [
+        "Simply describe what you need in natural language. Our AI understands context and asks clarifying questions.",
+        "Advanced algorithms search through multiple databases simultaneously, finding parts that match your exact specifications.",
+        'Get recommendations in seconds, not hours. Our AI processes your requirements and delivers results instantly.',
+        "Browse instantly though Monotaro, Castorama or SMC catalogs."
+      ],
+      technologies: ['Python Smolagents', 'Agentic AI', 'NextJS', 'React', 'Docker', 'AWS'],
+      siteUrl: 'https://parts.podtech-ai.com/'
     }
   ];
 
@@ -140,11 +170,10 @@ export default function Projects({ activeAccordion, toggleAccordion }: ProjectsP
             <button
               key={category.id}
               onClick={() => setFilter(category.id)}
-              className={`flex items-center space-x-2 px-6 py-3 rounded-full font-medium transition-all duration-300 ${
-                filter === category.id
+              className={`flex items-center space-x-2 px-6 py-3 rounded-full font-medium transition-all duration-300 ${filter === category.id
                   ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg'
                   : 'bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white'
-              }`}
+                }`}
             >
               <span>{category.icon}</span>
               <span>{category.label}</span>
@@ -157,15 +186,14 @@ export default function Projects({ activeAccordion, toggleAccordion }: ProjectsP
           {filteredProjects.map((project, index) => (
             <div
               key={project.id}
-              className={`transition-all duration-700 ${
-                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-              }`}
+              className={`transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                }`}
               style={{ transitionDelay: `${index * 200}ms` }}
             >
               {/* Project Card */}
               <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl border border-gray-700 overflow-hidden hover:border-blue-500 transition-all duration-300 group">
                 {/* Header */}
-                <div 
+                <div
                   className="p-6 cursor-pointer"
                   onClick={() => toggleAccordion(project.id)}
                 >
@@ -183,9 +211,8 @@ export default function Projects({ activeAccordion, toggleAccordion }: ProjectsP
                         <p className="text-gray-400 mt-1">{project.description}</p>
                       </div>
                     </div>
-                    <div className={`transform transition-transform duration-300 ${
-                      activeAccordion === project.id ? 'rotate-180' : ''
-                    }`}>
+                    <div className={`transform transition-transform duration-300 ${activeAccordion === project.id ? 'rotate-180' : ''
+                      }`}>
                       <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                       </svg>
@@ -194,21 +221,20 @@ export default function Projects({ activeAccordion, toggleAccordion }: ProjectsP
                 </div>
 
                 {/* Expanded Content */}
-                <div className={`transition-all duration-500 overflow-hidden ${
-                  activeAccordion === project.id ? 'max-h-[1000px] opacity-100' : 'max-h-0 opacity-0'
-                }`}>
+                <div className={`transition-all duration-500 overflow-hidden ${activeAccordion === project.id ? 'max-h-[1000px] opacity-100' : 'max-h-0 opacity-0'
+                  }`}>
                   <div className="px-6 pb-6">
                     <div className="grid lg:grid-cols-2 gap-8">
                       {/* Project Image */}
                       <div className="relative group">
                         <div className="absolute -inset-2 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl opacity-20 group-hover:opacity-30 transition-opacity duration-300 blur"></div>
                         <div className="relative">
-                          <Image 
-                            src={project.image} 
-                            alt={project.title} 
-                            width={500} 
-                            height={350} 
-                            className="rounded-xl shadow-2xl w-full h-auto" 
+                          <Image
+                            src={project.image}
+                            alt={project.title}
+                            width={500}
+                            height={350}
+                            className="rounded-xl shadow-2xl w-full h-auto"
                           />
                         </div>
                       </div>
@@ -268,7 +294,7 @@ export default function Projects({ activeAccordion, toggleAccordion }: ProjectsP
                         )}
 
                         {/* Action Button */}
-                        <div className="pt-4">
+                        {project.githubUrl && (<div className="pt-4">
                           <a
                             href={project.githubUrl}
                             target="_blank"
@@ -280,7 +306,17 @@ export default function Projects({ activeAccordion, toggleAccordion }: ProjectsP
                             </svg>
                             <span>View on GitHub</span>
                           </a>
-                        </div>
+                        </div>)}
+                        {project.siteUrl && (<div className="pt-4">
+                          <a
+                            href={project.siteUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg font-semibold hover:from-blue-600 hover:to-purple-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl"
+                          >
+                            <span>Try it yourself</span>
+                          </a>
+                        </div>)}
                       </div>
                     </div>
                   </div>

@@ -36,6 +36,20 @@ export default function Experiences() {
 
   const experiences: Experience[] = [
     {
+      title: "Lead Engineer Internship",
+      company: "Podtech",
+      companyUrl: "https://podtech.tech/",
+      period: "April 2025 - September 2025",
+      location: "Tokyo, Japan",
+      type: "internship",
+      description: [
+        "Leaded a web application project for recommending the best itinerary for tourists in Japan",
+        "Deployed in production using Docker and AWS",
+        "Contributed to agentic AI projects"
+      ],
+      technologies: ["Python", "Agentic AI", "React", "NextJS", "Docker", "AWS", "DevOps"]
+    },
+    {
       title: "Engineer Internship in Deep Learning",
       company: "Visionairy",
       companyUrl: "https://www.visionairy.io/",
