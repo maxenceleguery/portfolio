@@ -2,7 +2,7 @@
   "name": "portfolio",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://maxenceleguery.github.io/portfolio",
+  "homepage": "https://maxenceleguery.net",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
