@@ -18,6 +18,9 @@ export const metadata: Metadata = {
   authors: [{ name: "Maxence Leguéry" }],
   keywords: ["Maxence Leguéry", "portfolio", "computer science", "machine learning", "ENSTA Paris", "engineering student", "deep learning", "AI"],
   metadataBase: new URL("https://maxenceleguery.net"),
+  alternates: {
+    canonical: "https://maxenceleguery.net",
+  },
   openGraph: {
     title: "Maxence Leguéry - Portfolio | Machine Learning & Software Engineer",
     description: "French engineering student specialized in computer science - Portfolio showcasing projects, skills, and experience in machine learning and software development",
@@ -73,7 +76,6 @@ export default function RootLayout({
         />
         {/* End Google Tag Manager */}
 
-        <link rel="canonical" href="https://maxenceleguery.net" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <script
           type="application/ld+json"
