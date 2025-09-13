@@ -1,10 +1,9 @@
 import Image from "next/image";
+import { useAge } from "@/components/hooks/useAge";
 
-interface AboutProps {
-  age: number;
-}
+export default function About() {
+  const age = useAge('2001-09-23');
 
-export default function About({ age }: AboutProps) {
   const personalInfo = [
     { label: "Name", value: "Maxence Leguéry", icon: "👤" },
     { label: "Age", value: age.toString(), icon: "🎂" },

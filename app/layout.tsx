@@ -82,7 +82,7 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Person",
               "name": "Maxence Leguéry",
-              "jobTitle": "Computer Science Engineering Student",
+              "jobTitle": "AI Engineer & Software Developer",
               "affiliation": {
                 "@type": "Organization",
                 "name": "ENSTA Paris"

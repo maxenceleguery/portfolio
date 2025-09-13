@@ -11,7 +11,7 @@ export default function Footer() {
               Maxence Leguéry
             </h3>
             <p className="text-gray-400 text-sm">
-              AI Engineering • AI Enthusiast • Problem Solver
+              AI Engineer • Software Developer
             </p>
           </div>
 

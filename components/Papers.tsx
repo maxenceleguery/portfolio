@@ -1,3 +1,5 @@
+import { useArxivPapers } from "@/components/hooks/useArxivPapers";
+
 export interface Paper {
   title: string;
   authors: string[];
@@ -6,12 +8,9 @@ export interface Paper {
   publishedDate: string;
 }
 
-interface PapersProps {
-  papers: Paper[];
-  loading: boolean;
-}
+export default function Papers() {
+  const { papers, loading } = useArxivPapers();
 
-export default function Papers({ papers, loading }: PapersProps) {
   return (
     <section id="papers" className="py-16 bg-gray-900">
       <div className="container mx-auto px-4">

@@ -19,15 +19,16 @@ interface Project {
   };
 }
 
-interface ProjectsProps {
-  activeAccordion: string;
-  toggleAccordion: (id: string) => void;
-}
 
-export default function Projects({ activeAccordion, toggleAccordion }: ProjectsProps) {
+export default function Projects() {
+  const [activeAccordion, setActiveAccordion] = useState<string>('');
   const [isVisible, setIsVisible] = useState(false);
   const [filter, setFilter] = useState<string>('all');
   const sectionRef = useRef<HTMLDivElement>(null);
+
+  const toggleAccordion = (id: string) => {
+    setActiveAccordion(activeAccordion === id ? '' : id);
+  };
 
   useEffect(() => {
     const observer = new IntersectionObserver(
