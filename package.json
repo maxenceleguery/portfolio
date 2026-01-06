@@ -12,7 +12,7 @@
     "deploy": "NODE_ENV=production gh-pages -d out --nojekyll"
   },
   "dependencies": {
-    "next": "^15.3.3",
+    "next": "15.3.8",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   },
