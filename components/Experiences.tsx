@@ -1,99 +1,10 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
-
-interface Experience {
-  title: string;
-  company: string;
-  companyUrl?: string;
-  period: string;
-  location: string;
-  description: string[];
-  technologies: string[];
-  type: 'internship' | 'research' | 'project';
-}
+import { useInView } from '@/components/hooks/useInView';
+import { EXPERIENCES } from '@/lib/data';
 
 export default function Experiences() {
-  const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.2 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
-  const experiences: Experience[] = [
-    {
-      title: "Lead Engineer Internship",
-      company: "Podtech",
-      companyUrl: "https://podtech.tech/",
-      period: "April 2025 - September 2025",
-      location: "Tokyo, Japan",
-      type: "internship",
-      description: [
-        "Leaded a web application project for recommending the best itinerary for tourists in Japan",
-        "Deployed in production using Docker and AWS",
-        "Contributed to agentic AI projects"
-      ],
-      technologies: ["Python", "Agentic AI", "React", "NextJS", "Docker", "AWS", "DevOps"]
-    },
-    {
-      title: "Engineer Internship in Deep Learning",
-      company: "Visionairy",
-      companyUrl: "https://www.visionairy.io/",
-      period: "February 2024 - August 2024",
-      location: "Paris, France",
-      type: "internship",
-      description: [
-        "Implemented AI solutions for anomaly detection in industrial environments",
-        "Deployed machine learning models in production using Docker and Azure",
-        "Collaborated with cross-functional teams for smooth integration and continuous improvement of AI systems",
-        "Developed robust testing frameworks for ML model validation"
-      ],
-      technologies: ["PyTorch", "Python", "Computer vision", "Docker", "Azure", "OpenCV", "MLOps"]
-    },
-    {
-      title: "Research Internship in Deep Learning",
-      company: "U2IS Laboratory, ENSTA Paris",
-      companyUrl: "https://u2is.ensta-paris.fr/?lang=en",
-      period: "September 2023 - February 2024",
-      location: "Palaiseau, France",
-      type: "research",
-      description: [
-        "Conducted research on uncertainty estimation to mitigate overconfident AI model predictions",
-        "Collaborated with teacher-researcher, resulting in a paper submitted to CVPR",
-        "Contributed to advancing deep learning techniques for robust and reliable AI models",
-        "Implemented novel Bayesian neural network architectures"
-      ],
-      technologies: ["PyTorch", "Python", "Computer vision", "Bayesian Networks", "Research"]
-    },
-    {
-      title: "Research Internship in General Relativity",
-      company: "CPHT, École Polytechnique",
-      period: "June 2023 - August 2023",
-      location: "Palaiseau, France",
-      type: "research",
-      description: [
-        "Studied quasinormal modes of different space-time geometries",
-        "Developed numerical methods for solving differential equations in curved spacetime",
-        "Published research on quasinormal modes in curved space-time",
-        "Implemented computational physics simulations using Python"
-      ],
-      technologies: ["Python", "Mathematical Modeling", "Numerical Analysis", "Physics"]
-    }
-  ];
+  const [sectionRef, isVisible] = useInView<HTMLElement>(0.2);
 
   const getTypeIcon = (type: string) => {
     switch (type) {
@@ -131,7 +42,7 @@ export default function Experiences() {
           <div className="absolute left-8 md:left-1/2 transform md:-translate-x-0.5 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-500 via-purple-500 to-pink-500"></div>
 
           <div className="space-y-12">
-            {experiences.map((exp, index) => (
+            {EXPERIENCES.map((exp, index) => (
               <div
                 key={index}
                 className={`relative transition-all duration-700 ${

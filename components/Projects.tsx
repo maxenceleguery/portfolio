@@ -1,145 +1,18 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 import Image from "next/image";
-
-interface Project {
-  id: string;
-  title: string;
-  description: string;
-  image: string;
-  features: string[];
-  technologies: string[];
-  githubUrl?: string;
-  siteUrl?: string;
-  category: 'graphics' | 'ai' | 'game' | 'web';
-  reference?: {
-    title: string;
-    url: string;
-  };
-}
-
+import { useInView } from '@/components/hooks/useInView';
+import { PROJECTS, PROJECT_CATEGORIES } from '@/lib/data';
 
 export default function Projects() {
   const [activeAccordion, setActiveAccordion] = useState<string>('');
-  const [isVisible, setIsVisible] = useState(false);
   const [filter, setFilter] = useState<string>('all');
-  const sectionRef = useRef<HTMLDivElement>(null);
+  const [sectionRef, isVisible] = useInView<HTMLElement>(0.2);
 
   const toggleAccordion = (id: string) => {
     setActiveAccordion(activeAccordion === id ? '' : id);
   };
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.2 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
-  const projects: Project[] = [
-    {
-      id: 'raytracer',
-      title: 'C++ Raytracer Engine',
-      description: 'A realistic 3D renderer with raytracing built from scratch using C++. Features CUDA acceleration for massive performance improvements and real-time rendering capabilities.',
-      image: '/raytracer_card.png',
-      category: 'graphics',
-      features: [
-        'Render triangles and polygons with triangle decomposition',
-        'Bounding Volume Hierarchy (BVH) optimization',
-        'Advanced material system with light emission, color, glossiness, transparency',
-        'Dynamic camera with adaptable parameters (FOV, image size)',
-        'SDL2 live screen with keyboard camera control',
-        'PNG export functionality',
-        'OBJ file format support'
-      ],
-      technologies: ['C++', 'CUDA', 'SDL2', 'OpenGL', 'Linear Algebra', 'Computer Graphics'],
-      githubUrl: 'https://github.com/maxenceleguery/3d-render-engine'
-    },
-    {
-      id: 'fixmatch',
-      title: 'FixMatch Algorithm Implementation',
-      description: 'Implementation of the FixMatch semi-supervised learning algorithm for training ML models with limited labeled data by leveraging pseudolabeling on unlabeled examples.',
-      image: '/fixmatch-pseudolabel.png',
-      category: 'ai',
-      features: [
-        'Semi-supervised learning implementation',
-        'Pseudolabeling for data augmentation',
-        'Consistency regularization techniques',
-        'State-of-the-art performance on benchmark datasets',
-        'Comprehensive evaluation metrics'
-      ],
-      technologies: ['Python', 'PyTorch', 'Machine Learning', 'Semi-Supervised Learning', 'Data Augmentation'],
-      githubUrl: 'https://github.com/maxenceleguery/ENSTA_courses/tree/master/MI201',
-      reference: {
-        title: 'FixMatch: Simplifying Semi-Supervised Learning',
-        url: 'https://arxiv.org/abs/2001.07685'
-      }
-    },
-    {
-      id: 'tetris',
-      title: '3D Tetris Game',
-      description: 'A modern 3D interpretation of the classic Tetris game, featuring enhanced graphics, smooth animations, and immersive gameplay mechanics.',
-      image: '/tetris_preview.png',
-      category: 'game',
-      features: [
-        '3D block mechanics and physics',
-        'Smooth rotation and movement animations',
-        'Multiple camera angles',
-        'Score tracking and level progression',
-        'Modern OpenGL rendering pipeline'
-      ],
-      technologies: ['C++', 'OpenGL', 'GLFW', 'Game Development', '3D Graphics'],
-      githubUrl: 'https://github.com/maxenceleguery/tetris'
-    },
-    {
-      id: 'tabichan',
-      title: 'Tabichan, an AI-Driven Travel Planner',
-      description: 'Tabichan brings your travel ideas to life. Easily find the best travel experiences by chatting with Tabichan.',
-      image: '/tabichan.png',
-      category: 'web',
-      features: [
-        "Simply ask Tabichan where you want to go, what you want to do, or even just how you're feeling.",
-        "Tabichan instantly suggests unique tourist spots you've never seen before, tailored to your preferences.",
-        'Choose your favorite plan, book, and enjoy the best trip ever!'
-      ],
-      technologies: ['Python Smolagents', 'Agentic AI', 'NextJS', 'React', 'Docker', 'AWS'],
-      siteUrl: 'https://podtech-ai.com'
-    },
-    {
-      id: 'parts_selection',
-      title: 'Parts selection application',
-      description: 'Leverage specialized large language models to instantly recommend optimal parts from vast component databases. Our AI agent understands your requirements and finds the perfect match.',
-      image: '/parts_selection.png',
-      category: 'web',
-      features: [
-        "Simply describe what you need in natural language. Our AI understands context and asks clarifying questions.",
-        "Advanced algorithms search through multiple databases simultaneously, finding parts that match your exact specifications.",
-        'Get recommendations in seconds, not hours. Our AI processes your requirements and delivers results instantly.',
-        "Browse instantly though Monotaro, Castorama or SMC catalogs."
-      ],
-      technologies: ['Python Smolagents', 'Agentic AI', 'NextJS', 'React', 'Docker', 'AWS'],
-      siteUrl: 'https://parts.podtech-ai.com/'
-    }
-  ];
-
-  const categories = [
-    { id: 'all', label: 'All Projects', icon: '🚀' },
-    { id: 'graphics', label: 'Graphics', icon: '🎨' },
-    { id: 'ai', label: 'AI & ML', icon: '🤖' },
-    { id: 'game', label: 'Games', icon: '🎮' },
-    { id: 'web', label: 'Web', icon: '🌐' }
-  ];
 
   const getCategoryColor = (category: string) => {
     switch (category) {
@@ -151,7 +24,7 @@ export default function Projects() {
     }
   };
 
-  const filteredProjects = filter === 'all' ? projects : projects.filter(p => p.category === filter);
+  const filteredProjects = filter === 'all' ? PROJECTS : PROJECTS.filter(p => p.category === filter);
 
   return (
     <section ref={sectionRef} id="projects" className="py-20 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
@@ -167,7 +40,7 @@ export default function Projects() {
 
         {/* Filter Categories */}
         <div className="flex flex-wrap justify-center gap-4 mb-12">
-          {categories.map((category) => (
+          {PROJECT_CATEGORIES.map((category) => (
             <button
               key={category.id}
               onClick={() => setFilter(category.id)}
@@ -202,7 +75,7 @@ export default function Projects() {
                     <div className="flex items-center space-x-4">
                       <div className={`p-3 rounded-xl bg-gradient-to-r ${getCategoryColor(project.category)}`}>
                         <span className="text-2xl">
-                          {categories.find(c => c.id === project.category)?.icon}
+                          {PROJECT_CATEGORIES.find(c => c.id === project.category)?.icon}
                         </span>
                       </div>
                       <div>
@@ -225,20 +98,38 @@ export default function Projects() {
                 <div className={`transition-all duration-500 overflow-hidden ${activeAccordion === project.id ? 'max-h-[1000px] opacity-100' : 'max-h-0 opacity-0'
                   }`}>
                   <div className="px-6 pb-6">
-                    <div className="grid lg:grid-cols-2 gap-8">
+                    <div
+                      className={
+                        project.imageVariant === "icon"
+                          ? "flex flex-col gap-6"
+                          : "grid lg:grid-cols-2 gap-8"
+                      }
+                    >
                       {/* Project Image */}
-                      <div className="relative group">
-                        <div className="absolute -inset-2 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl opacity-20 group-hover:opacity-30 transition-opacity duration-300 blur"></div>
-                        <div className="relative">
+                      {project.imageVariant === "icon" ? (
+                        <div className="flex justify-center">
                           <Image
                             src={project.image}
                             alt={project.title}
                             width={500}
-                            height={350}
-                            className="rounded-xl shadow-2xl w-full h-auto"
+                            height={500}
+                            className="h-auto w-32 md:w-40 drop-shadow-2xl"
                           />
                         </div>
-                      </div>
+                      ) : (
+                        <div className="relative group">
+                          <div className="absolute -inset-2 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl opacity-20 group-hover:opacity-30 transition-opacity duration-300 blur"></div>
+                          <div className="relative">
+                            <Image
+                              src={project.image}
+                              alt={project.title}
+                              width={500}
+                              height={350}
+                              className="rounded-xl shadow-2xl w-full h-auto"
+                            />
+                          </div>
+                        </div>
+                      )}
 
                       {/* Project Details */}
                       <div className="space-y-6">

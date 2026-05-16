@@ -1,64 +1,11 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
 import Image from "next/image";
-
-interface ContactMethod {
-  name: string;
-  icon: string;
-  url?: string;
-  display: string;
-  description: string;
-  color: string;
-}
+import { useInView } from '@/components/hooks/useInView';
+import { CONTACT_METHODS } from '@/lib/data';
 
 export default function Contact() {
-  const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.3 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
-  const contactMethods: ContactMethod[] = [
-    {
-      name: 'LinkedIn',
-      icon: '/linkedin_logo.webp',
-      url: 'https://www.linkedin.com/in/maxence-leguery/',
-      display: 'maxence-leguery',
-      description: 'Connect with me professionally',
-      color: 'from-blue-600 to-blue-700'
-    },
-    {
-      name: 'GitHub',
-      icon: '/github_logo.png',
-      url: 'https://github.com/maxenceleguery',
-      display: 'maxenceleguery',
-      description: 'Check out my GitHub repositories',
-      color: 'from-gray-700 to-gray-800'
-    },
-    {
-      name: 'Email',
-      icon: '/mail_logo.png',
-      url: 'mailto:maxence.leguery@ensta-paris.fr',
-      display: 'maxence.leguery@ensta-paris.fr',
-      description: 'Send me a direct message',
-      color: 'from-red-500 to-red-600'
-    }
-  ];
+  const [sectionRef, isVisible] = useInView<HTMLElement>(0.3);
 
   return (
     <section ref={sectionRef} id="contact" className="py-20 bg-gradient-to-br from-slate-50 to-blue-50">
@@ -74,7 +21,7 @@ export default function Contact() {
 
         {/* Contact Methods */}
         <div className="grid md:grid-cols-3 gap-8 mb-16">
-          {contactMethods.map((method, index) => (
+          {CONTACT_METHODS.map((method, index) => (
             <div
               key={method.name}
               className={`transition-all duration-700 ${
