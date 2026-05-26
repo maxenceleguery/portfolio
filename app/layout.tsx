@@ -14,16 +14,16 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Maxence Leguéry - Portfolio | Machine Learning & Software Engineer",
-  description: "French engineering student specialized in computer science - Portfolio showcasing projects, skills, and experience in machine learning and software development",
+  description: "Freelance AI & software engineer in Paris — machine learning, full-stack, and developer tools. Recent work: Buddy AI Note and Cutforge (browser video editor SDK).",
   authors: [{ name: "Maxence Leguéry" }],
-  keywords: ["Maxence Leguéry", "portfolio", "freelance AI engineer", "machine learning", "ENSTA Paris", "Podtech", "Buddy AI Note", "deep learning", "AI", "Next.js"],
+  keywords: ["Maxence Leguéry", "portfolio", "freelance AI engineer", "machine learning", "ENSTA Paris", "Podtech", "Buddy AI Note", "Cutforge", "video editor SDK", "deep learning", "AI", "Next.js"],
   metadataBase: new URL("https://maxenceleguery.net"),
   alternates: {
     canonical: "https://maxenceleguery.net",
   },
   openGraph: {
     title: "Maxence Leguéry - Portfolio | Machine Learning & Software Engineer",
-    description: "Freelance AI engineer based in Paris, working with Podtech on Buddy AI Note. Portfolio showcasing AI, machine learning, and full-stack engineering projects.",
+    description: "Freelance AI & software engineer in Paris — machine learning, full-stack, and developer tools. Recent work: Buddy AI Note and Cutforge (browser video editor SDK).",
     url: "https://maxenceleguery.net",
     siteName: "Maxence Leguéry Portfolio",
     locale: "en_US",
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Maxence Leguéry - Portfolio | Machine Learning & Software Engineer",
-    description: "Freelance AI engineer based in Paris, working with Podtech on Buddy AI Note. Portfolio showcasing AI, machine learning, and full-stack engineering projects.",
+    description: "Freelance AI & software engineer in Paris — machine learning, full-stack, and developer tools. Recent work: Buddy AI Note and Cutforge (browser video editor SDK).",
   },
   robots: {
     index: true,
