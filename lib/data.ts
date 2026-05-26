@@ -267,6 +267,34 @@ export const ADDITIONAL_SKILLS: string[] = [
 
 export const PROJECTS: Project[] = [
   {
+    id: "cutforge",
+    title: "Cutforge — client-side video editor",
+    description:
+      "An embeddable, browser-based non-linear video editor. Decode, compositing and export all run on the user's machine — a WebGPU compositor, WebCodecs, and a Rust/WASM core — so there are no render servers and nothing is uploaded. Sold as a commercial SDK that teams drop into their own products.",
+    image: "/cutforge.svg",
+    imageVariant: "icon",
+    category: "graphics",
+    features: [
+      "Multi-track timeline: trims, splits, transitions, keyframed effects, text overlays",
+      "WebGPU compositor on an OffscreenCanvas worker, with WebGL2 / Canvas2D fallbacks",
+      "WebCodecs decode/encode + mp4/webm muxing — exports faster than realtime, no server",
+      "Rust→WASM engine: timeline scheduler, audio resampler, peak summaries, color path",
+      "OPFS-backed media streaming and an AudioWorklet + SharedArrayBuffer mixer",
+      "Ships as @cutforge/editor — a license-gated, embeddable SDK",
+    ],
+    technologies: [
+      "TypeScript",
+      "React",
+      "Rust",
+      "WebAssembly",
+      "WebGPU",
+      "WebCodecs",
+      "Vite",
+      "Web Audio",
+    ],
+    siteUrl: "https://cutforge.dev",
+  },
+  {
     id: "buddy",
     title: "Buddy AI Note",
     description:
