@@ -295,6 +295,35 @@ export const PROJECTS: Project[] = [
     siteUrl: "https://cutforge.dev",
   },
   {
+    id: "blackhole",
+    title: "Black Hole Simulator — general-relativistic ray tracer",
+    description:
+      "A real-time, physically accurate black hole simulator running entirely in the browser. It integrates null geodesics through curved spacetime on the GPU to render gravitational lensing, a Doppler-beamed accretion disk, the photon ring and the shadow — for the Schwarzschild, Kerr, and Taub-NUT metrics. A companion tool makes my quasinormal-mode research interactive: a continued-fraction explorer that finds a black hole's ringdown frequencies and lets you hear them.",
+    image: "/blackhole.png",
+    imageVariant: "cover",
+    category: "graphics",
+    features: [
+      "Hamiltonian geodesic ray tracing in a single WebGL2 fragment shader — one engine, three spacetimes (Schwarzschild / Kerr / Taub-NUT)",
+      "Relativistic accretion disk with blackbody temperature, Doppler beaming and gravitational redshift; photon-ring demagnification for a clean shadow",
+      "HDR render pipeline: bloom, ACES tonemapping and box-filtered supersampling (SSAA)",
+      "Interactive quasinormal-mode explorer — Leaver's continued fraction evaluated in a shader, with click-to-snap root finding and ringdown sonification",
+      "Grew directly out of my general-relativity research on quasinormal modes",
+    ],
+    technologies: [
+      "WebGL2",
+      "GLSL",
+      "JavaScript",
+      "General Relativity",
+      "Numerical Analysis",
+      "Computer Graphics",
+    ],
+    siteUrl: "https://blackhole.maxenceleguery.net",
+    reference: {
+      title: "Quasinormal modes in curved spacetimes (ENSTA research report)",
+      url: "https://bibnum.ensta.fr/9537/",
+    },
+  },
+  {
     id: "buddy",
     title: "Buddy AI Note",
     description:
@@ -323,6 +352,33 @@ export const PROJECTS: Project[] = [
       "Tailwind",
     ],
     siteUrl: "https://cal.podtech-ai.com",
+  },
+  {
+    id: "adenor",
+    title: "Adenor — a merchant's trading game",
+    description:
+      "A free, browser-based trading game: buy low, sell far, know first — no pay-to-win. Players move goods between markets across a living world, racing on information and price arbitrage and climbing a shared leaderboard. Built as a server-rendered Next.js app on a Supabase (Postgres + row-level security) backend, with product analytics, guides, blog and changelog.",
+    image: "/adenor.png",
+    imageVariant: "cover",
+    category: "game",
+    features: [
+      "Market and price simulation with arbitrage opportunities across a world map",
+      "Accounts, inventory and progression on Supabase Postgres with row-level security",
+      "Server-side rendered Next.js (App Router) with SEO-oriented guides, blog and changelog",
+      "Public leaderboard and PostHog product analytics",
+      "Self-hosted: Dockerized and deployed behind nginx on a VPS",
+    ],
+    technologies: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Supabase",
+      "PostgreSQL",
+      "PostHog",
+      "Tailwind",
+      "Docker",
+    ],
+    siteUrl: "https://adenor.app",
   },
   {
     id: "parts_selection",
