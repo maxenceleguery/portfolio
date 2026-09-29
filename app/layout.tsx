@@ -5,7 +5,7 @@ import "./deck.css";
 import { EMAIL, GITHUB, LANGUAGES, LINKEDIN, MISSIONS } from "@/lib/data";
 
 const michroma = Michroma({ weight: "400", subsets: ["latin"], variable: "--font-michroma" });
-const archivo = Archivo({ subsets: ["latin"], axes: ["wdth"], variable: "--font-archivo" });
+const archivo = Archivo({ subsets: ["latin"], variable: "--font-archivo" });
 const martian = Martian_Mono({ subsets: ["latin"], variable: "--font-martian" });
 
 const title = "Maxence Leguéry, freelance engineer: products, AI and cloud";
