@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Archivo, Martian_Mono, Michroma } from "next/font/google";
 import "./globals.css";
 import "./deck.css";
+import { EMAIL, GITHUB, LANGUAGES, LINKEDIN, MISSIONS } from "@/lib/data";
 
 const michroma = Michroma({ weight: "400", subsets: ["latin"], variable: "--font-michroma" });
 const archivo = Archivo({ subsets: ["latin"], axes: ["wdth"], variable: "--font-archivo" });
@@ -40,6 +41,65 @@ export const metadata: Metadata = {
   },
 };
 
+const SITE = "https://maxenceleguery.net";
+const APP_TYPE: Record<string, string> = { releve: "MobileApplication", adenor: "VideoGame" };
+
+// One graph: the profile page, its person, the site, and each mission as an app.
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    { "@type": "WebSite", "@id": `${SITE}/#site`, url: SITE, name: "Maxence Leguéry", inLanguage: "en" },
+    {
+      "@type": "ProfilePage",
+      "@id": `${SITE}/#page`,
+      url: SITE,
+      name: title,
+      isPartOf: { "@id": `${SITE}/#site` },
+      mainEntity: { "@id": `${SITE}/#me` },
+    },
+    {
+      "@type": "Person",
+      "@id": `${SITE}/#me`,
+      name: "Maxence Leguéry",
+      url: SITE,
+      image: `${SITE}/about.webp`,
+      email: `mailto:${EMAIL}`,
+      jobTitle: "Freelance engineer",
+      description:
+        "Freelance engineer building web, mobile and AI products end to end, and the cloud infrastructure they run on. CTO for Podtech.",
+      address: { "@type": "PostalAddress", addressLocality: "Paris", addressCountry: "FR" },
+      worksFor: { "@type": "Organization", name: "Podtech", url: "https://podtech.tech/" },
+      alumniOf: { "@type": "CollegeOrUniversity", name: "ENSTA Paris", url: "https://www.ensta-paris.fr/" },
+      knowsLanguage: LANGUAGES.map((l) => l.name),
+      sameAs: [GITHUB, LINKEDIN],
+      knowsAbout: [
+        "Machine Learning",
+        "Deep Learning",
+        "Full-stack Engineering",
+        "Cloud Infrastructure",
+        "Terraform",
+        "Google Cloud Platform",
+        "Amazon Web Services",
+        "Next.js",
+        "React Native",
+        "TypeScript",
+        "Rust",
+        "CUDA",
+        "WebGPU",
+      ],
+    },
+    ...MISSIONS.map((m) => ({
+      "@type": APP_TYPE[m.id] ?? "SoftwareApplication",
+      name: m.name,
+      description: `${m.kicker}. ${m.summary}`,
+      url: m.links[0]?.href,
+      applicationCategory: m.id === "adenor" ? "GameApplication" : "DeveloperApplication",
+      ...(m.id === "releve" ? { operatingSystem: "iOS, Android", applicationCategory: "GameApplication" } : { operatingSystem: "Web browser" }),
+      author: { "@id": `${SITE}/#me` },
+    })),
+  ],
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -63,37 +123,7 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#0d1b2a" />
         <link rel="preload" as="image" href="/media/blackhole-poster.jpg" fetchPriority="high" />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Person",
-              name: "Maxence Leguéry",
-              jobTitle: "Freelance engineer",
-              worksFor: { "@type": "Organization", name: "Podtech", url: "https://podtech.tech/" },
-              alumniOf: { "@type": "Organization", name: "ENSTA Paris", url: "https://www.ensta-paris.fr/" },
-              url: "https://maxenceleguery.net",
-              email: "mailto:maxence.leguery@gmail.com",
-              sameAs: ["https://github.com/maxenceleguery", "https://www.linkedin.com/in/maxence-leguery"],
-              knowsAbout: [
-                "Machine Learning",
-                "Deep Learning",
-                "Full-stack Engineering",
-                "Cloud Infrastructure",
-                "Terraform",
-                "Google Cloud Platform",
-                "Amazon Web Services",
-                "Next.js",
-                "React Native",
-                "TypeScript",
-                "Rust",
-              ],
-              description:
-                "Freelance engineer building web, mobile and AI products end to end, and the cloud infrastructure they run on. CTO for Podtech.",
-            }),
-          }}
-        />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </head>
       <body>
         {/* Google Tag Manager (noscript) */}
