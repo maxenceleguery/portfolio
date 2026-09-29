@@ -48,8 +48,14 @@ export default function Oscilloscope() {
       ctx.strokeStyle = "rgba(107, 227, 138, 0.12)";
       ctx.lineWidth = 1;
       ctx.beginPath();
-      for (let i = 1; i < 8; i++) (ctx.moveTo((W * i) / 8, 0), ctx.lineTo((W * i) / 8, H));
-      for (let i = 1; i < 4; i++) (ctx.moveTo(0, (H * i) / 4), ctx.lineTo(W, (H * i) / 4));
+      for (let i = 1; i < 8; i++) {
+        ctx.moveTo((W * i) / 8, 0);
+        ctx.lineTo((W * i) / 8, H);
+      }
+      for (let i = 1; i < 4; i++) {
+        ctx.moveTo(0, (H * i) / 4);
+        ctx.lineTo(W, (H * i) / 4);
+      }
       ctx.stroke();
     };
     const trace = (from: number, to: number) => {

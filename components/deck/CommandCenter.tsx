@@ -63,8 +63,10 @@ export default function CommandCenter({ panels }: { panels: Record<StationId, Re
     setActive(id);
   }, []);
 
-  // mount: read hash and preferences, then run the power-on sequence once
+  // mount: read hash and preferences, then run the power-on sequence once. These are
+  // browser-only values, so they can't be initial state without a hydration mismatch.
   useEffect(() => {
+    /* eslint-disable react-hooks/set-state-in-effect */
     setJs(true);
     setActive(stationFromHash(location.hash));
     const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -72,6 +74,7 @@ export default function CommandCenter({ panels }: { panels: Record<StationId, Re
     setMotion(m);
     setScan(readPref("deck.scan", true));
     setSound(readPref("deck.sound", false));
+    /* eslint-enable react-hooks/set-state-in-effect */
     if (m) {
       setBoot(true);
       const t = setTimeout(() => setBoot(false), 2200);
