@@ -1,3 +1,4 @@
+import HoloTopology from "@/components/stations/HoloTopology";
 import { CLOUDS, FLIGHT_RULES } from "@/lib/data";
 
 // Production topology drawn as an SVG "screen". Sub-labels are Terraform
@@ -128,6 +129,7 @@ export default function Infra() {
           </div>
           <div className="infra">
             <Topology />
+            <HoloTopology />
           </div>
           <figcaption className="infra-legend">
             <span><i style={{ background: "var(--amber)" }} />Requests</span>
