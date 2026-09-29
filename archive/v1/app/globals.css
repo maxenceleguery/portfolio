@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-geist-sans), system-ui, -apple-system, Segoe UI, Helvetica, Arial, sans-serif;
+}
+
+@layer base {
+  :where(a, button, [role="button"], input, select, textarea, summary):focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px #fff, 0 0 0 4px #3b82f6;
+    border-radius: 4px;
+  }
+}
