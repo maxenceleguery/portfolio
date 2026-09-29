@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
+import { useDeck } from "@/components/deck/DeckContext";
 import { STACK, TERMINALS, type TerminalLine } from "@/lib/data";
 import { START, step, type Pos } from "@/lib/typing";
 
@@ -16,19 +17,12 @@ function Line({ line, chars, caret }: { line: TerminalLine; chars: number; caret
 }
 
 export default function Workbench() {
-  const ref = useRef<HTMLDivElement>(null);
   // null = everything fully typed (server render, no JS, reduced motion)
   const [pos, setPos] = useState<Pos | null>(null);
-  const [running, setRunning] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    // start just before the bank scrolls into view, pause when it leaves
-    const io = new IntersectionObserver(([e]) => setRunning(e.isIntersecting), { rootMargin: "200px 0px" });
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
+  const { active, motion } = useDeck();
+  // types only while the station faces the camera; motion off shows finished sessions
+  const running = motion && active === "workbench";
+  if (!motion && pos) setPos(null);
 
   useEffect(() => {
     if (!running) return;
@@ -38,13 +32,10 @@ export default function Workbench() {
   }, [running, pos]);
 
   return (
-    <section className="wrap bay" id="workbench">
-      <header className="bay-head">
-        <h2 className="plate">Workbench</h2>
-        <p>Languages and tools I use every week, caught mid-task.</p>
-      </header>
+    <div className="workbench">
+      <p className="station-intro">Languages and tools I use every week, caught mid-task.</p>
 
-      <div className="terminals" ref={ref}>
+      <div className="terminals">
         {TERMINALS.map((t, s) => {
           const active = pos?.s === s;
           const idle = !!pos && s > pos.s; // waiting its turn: keeps its last session, dimmed
@@ -75,6 +66,6 @@ export default function Workbench() {
           </div>
         ))}
       </dl>
-    </section>
+    </div>
   );
 }

@@ -113,52 +113,54 @@ function Topology() {
 
 export default function Infra() {
   return (
-    <section className="wrap bay" id="systems">
-      <header className="bay-head">
-        <h2 className="plate">Systems</h2>
-        <p>
-          How I put things into production, for clients and for my own products. The layout below is drawn the way I
-          declare it in Terraform; the small labels are the resource types.
+    <div className="systems">
+      <div className="systems-main">
+        <p className="station-intro">
+          How I put things into production, for clients and for my own products. Drawn the way I declare it in Terraform;
+          the small labels are the resource types.
         </p>
-      </header>
-
-      <figure className="screen" style={{ margin: 0 }}>
-        <div className="screen-bar">
-          <span>CH 6</span>
-          <span className="grow">PRODUCTION TOPOLOGY</span>
-          <span className="lamp" aria-hidden="true" style={{ width: 6, height: 6 }} />
-          <span>NOMINAL</span>
-        </div>
-        <div className="infra">
-          <Topology />
-        </div>
-        <figcaption className="infra-legend">
-          <span><i style={{ background: "var(--amber)" }} />Requests</span>
-          <span><i style={{ background: "var(--cyan)" }} />Background jobs</span>
-          <span><i style={{ background: "var(--green)" }} />Replication</span>
-          <span><i style={{ background: "var(--dim)" }} />Model weights</span>
-          <span><i style={{ background: "var(--ink)" }} />Deploys</span>
-        </figcaption>
-      </figure>
-
-      <ul className="rules" aria-label="Flight rules">
-        {FLIGHT_RULES.map((r) => (
-          <li key={r.title}>
-            <span className="check" aria-hidden="true" />
-            <strong>{r.title}</strong>
-            <p>{r.body}</p>
-          </li>
-        ))}
-      </ul>
-
-      <dl className="clouds">
-        {CLOUDS.map((c) => (
-          <div key={c.name}>
-            <dt>{c.name}</dt>
-            <dd>{c.use}</dd>
+        <figure className="screen holo-screen" style={{ margin: 0 }}>
+          <div className="screen-bar">
+            <span>HOLO 3</span>
+            <span className="grow">PRODUCTION TOPOLOGY</span>
+            <span className="lamp" aria-hidden="true" style={{ width: 6, height: 6 }} />
+            <span>NOMINAL</span>
           </div>
-        ))}
-      </dl>
-    </section>
+          <div className="infra">
+            <Topology />
+          </div>
+          <figcaption className="infra-legend">
+            <span><i style={{ background: "var(--amber)" }} />Requests</span>
+            <span><i style={{ background: "var(--cyan)" }} />Background jobs</span>
+            <span><i style={{ background: "var(--green)" }} />Replication</span>
+            <span><i style={{ background: "var(--dim)" }} />Model weights</span>
+            <span><i style={{ background: "var(--ink)" }} />Deploys</span>
+          </figcaption>
+        </figure>
+      </div>
+
+      <div className="systems-side">
+        <h3 className="side-title">Flight rules</h3>
+        <ul className="rules">
+          {FLIGHT_RULES.map((r) => (
+            <li key={r.title}>
+              <span className="check" aria-hidden="true" />
+              <strong>{r.title}</strong>
+              <p>{r.body}</p>
+            </li>
+          ))}
+        </ul>
+
+        <h3 className="side-title">Clouds flown</h3>
+        <dl className="clouds">
+          {CLOUDS.map((c) => (
+            <div key={c.name}>
+              <dt>{c.name}</dt>
+              <dd>{c.use}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    </div>
   );
 }

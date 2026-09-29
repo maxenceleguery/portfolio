@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Archivo, Martian_Mono, Michroma } from "next/font/google";
 import "./globals.css";
+import "./deck.css";
 
 const michroma = Michroma({ weight: "400", subsets: ["latin"], variable: "--font-michroma" });
 const archivo = Archivo({ subsets: ["latin"], axes: ["wdth"], variable: "--font-archivo" });

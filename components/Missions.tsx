@@ -1,16 +1,17 @@
 "use client";
 
 import { useRef, useState, type KeyboardEvent } from "react";
+import { useDeck, useIsActive } from "@/components/deck/DeckContext";
 import dynamic from "next/dynamic";
 import AutoVideo from "@/components/AutoVideo";
-import { ARCHIVE, MISSIONS, type Mission } from "@/lib/data";
+import { MISSIONS, type Mission } from "@/lib/data";
 
 const CutforgeEditor = dynamic(() => import("@/components/CutforgeEditor"), {
   ssr: false,
   loading: () => <div className="booting">Booting editor…</div>,
 });
 
-function Feed({ m, powered, onPower }: { m: Mission; powered: boolean; onPower: () => void }) {
+function Feed({ m, powered, onPower, live }: { m: Mission; powered: boolean; onPower: () => void; live: boolean }) {
   const s = m.screen;
   if (s.kind === "cutforge") {
     return powered ? (
@@ -49,7 +50,7 @@ function Feed({ m, powered, onPower }: { m: Mission; powered: boolean; onPower: 
       </div>
       <div className="phone main">
         {s.video ? (
-          <AutoVideo src={s.video.src} poster={s.video.poster} label={`${m.name} in use`} />
+          <AutoVideo src={s.video.src} poster={s.video.poster} label={`${m.name} in use`} play={live} />
         ) : (
           // eslint-disable-next-line @next/next/no-img-element
           <img src={rest[0].src} alt={rest[0].alt} />
@@ -121,7 +122,8 @@ function Dossier({ m, hidden }: { m: Mission; hidden: boolean }) {
 }
 
 export default function Missions() {
-  const [active, setActive] = useState(0);
+  const { mission: active, setMission: setActive } = useDeck();
+  const live = useIsActive("missions");
   const [powered, setPowered] = useState(false);
   const tabs = useRef<(HTMLButtonElement | null)[]>([]);
   const m = MISSIONS[active];
@@ -135,11 +137,7 @@ export default function Missions() {
   };
 
   return (
-    <section className="wrap bay" id="missions">
-      <header className="bay-head">
-        <h2 className="plate">Missions</h2>
-        <p>Products I built and still run. Pick one to put it on screen.</p>
-      </header>
+    <div className="missions">
 
       <div className="selector" role="tablist" aria-label="Missions" onKeyDown={onKeyDown}>
         {MISSIONS.map((mm, i) => (
@@ -171,7 +169,7 @@ export default function Missions() {
             <span>{m.screen.kind === "cutforge" ? (powered ? "LIVE PACKAGE" : "STANDBY") : "FEED"}</span>
           </div>
           <div className="feed" key={m.id}>
-            <Feed m={m} powered={powered} onPower={() => setPowered(true)} />
+            <Feed m={m} powered={powered} onPower={() => setPowered(true)} live={live} />
           </div>
         </div>
         <div className="mission-panels">
@@ -180,37 +178,6 @@ export default function Missions() {
           ))}
         </div>
       </div>
-
-      <div className="archive">
-        <h3>Earlier flights</h3>
-        <p>Student and early client projects, kept on file.</p>
-        {ARCHIVE.map((p) => (
-          <details key={p.id}>
-            <summary>
-              <span className="chev" aria-hidden="true">›</span>
-              <span className="t">{p.title}</span>
-              <span className="leader" aria-hidden="true" />
-              <span className="tech">{p.technologies.slice(0, 3).join(" / ")}</span>
-            </summary>
-            <div className="body">
-              <p style={{ margin: 0 }}>{p.description}</p>
-              <ul>
-                {p.features.map((f) => (
-                  <li key={f}>{f}</li>
-                ))}
-              </ul>
-              <p style={{ margin: 0 }} className="stack">
-                {p.technologies.join(", ")}
-              </p>
-              <div className="links" style={{ display: "flex", gap: 18, flexWrap: "wrap" }}>
-                {p.siteUrl && <a className="link" href={p.siteUrl}>Visit the site</a>}
-                {p.githubUrl && <a className="link" href={p.githubUrl}>Source on GitHub</a>}
-                {p.reference && <a className="link" href={p.reference.url}>{p.reference.title}</a>}
-              </div>
-            </div>
-          </details>
-        ))}
-      </div>
-    </section>
+    </div>
   );
 }

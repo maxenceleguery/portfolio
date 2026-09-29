@@ -34,6 +34,7 @@ export type MissionScreen =
 export interface Mission {
   id: string;
   name: string;
+  short?: string; // label on the bridge hologram
   kicker: string;
   status: "live" | "launching";
   statusLabel: string;
@@ -291,6 +292,7 @@ export const MISSIONS: Mission[] = [
   {
     id: "buddy",
     name: "Buddy AI Note",
+    short: "Buddy",
     kicker: "A memo-first daily workspace, built as Podtech's CTO",
     status: "live",
     statusLabel: "Live",
@@ -319,6 +321,7 @@ export const MISSIONS: Mission[] = [
   {
     id: "blackhole",
     name: "Black hole simulator",
+    short: "Black hole",
     kicker: "A general-relativistic ray tracer in one shader",
     status: "live",
     statusLabel: "Live",

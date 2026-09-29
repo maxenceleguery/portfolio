@@ -1,17 +1,14 @@
 import Image from "next/image";
 import Papers from "@/components/Papers";
-import { BIRTH_DATE, EDUCATION, EXPERIENCES, LANGUAGES } from "@/lib/data";
+import { ARCHIVE, BIRTH_DATE, EDUCATION, EXPERIENCES, LANGUAGES } from "@/lib/data";
 import { getAge } from "@/lib/utils";
 
 export default function Log() {
   const rev = new Date().toISOString().slice(0, 7); // stamped at build time
 
   return (
-    <section className="wrap bay" id="log">
-      <header className="bay-head">
-        <h2 className="plate">Log</h2>
-        <p>Where I have worked, studied and published.</p>
-      </header>
+    <div className="log">
+      <p className="station-intro">Where I have worked, studied and published, and the flights before these ones.</p>
 
       <article className="sheet">
         <div className="title-block">
@@ -122,6 +119,37 @@ export default function Log() {
           </div>
         </div>
       </article>
-    </section>
+
+      <div className="archive">
+        <h3>Earlier flights</h3>
+        <p>Student and early client projects, kept on file.</p>
+        {ARCHIVE.map((p) => (
+          <details key={p.id}>
+            <summary>
+              <span className="chev" aria-hidden="true">›</span>
+              <span className="t">{p.title}</span>
+              <span className="leader" aria-hidden="true" />
+              <span className="tech">{p.technologies.slice(0, 3).join(" / ")}</span>
+            </summary>
+            <div className="body">
+              <p style={{ margin: 0 }}>{p.description}</p>
+              <ul>
+                {p.features.map((f) => (
+                  <li key={f}>{f}</li>
+                ))}
+              </ul>
+              <p style={{ margin: 0 }} className="stack">
+                {p.technologies.join(", ")}
+              </p>
+              <div className="links" style={{ display: "flex", gap: 18, flexWrap: "wrap" }}>
+                {p.siteUrl && <a className="link" href={p.siteUrl}>Visit the site</a>}
+                {p.githubUrl && <a className="link" href={p.githubUrl}>Source on GitHub</a>}
+                {p.reference && <a className="link" href={p.reference.url}>{p.reference.title}</a>}
+              </div>
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
   );
 }
