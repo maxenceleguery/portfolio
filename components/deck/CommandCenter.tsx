@@ -125,7 +125,7 @@ export default function CommandCenter({ panels }: { panels: Record<StationId, Re
   // would restyle the whole ship on every mouse move.
   useEffect(() => {
     const view = root.current?.querySelector<HTMLElement>(".space-view");
-    const ring = root.current?.querySelector<HTMLElement>(".ring");
+    const ring = root.current?.querySelector<HTMLElement>(".bridge-ring");
     if (!view || !ring || !motion) return;
     let raf = 0;
     const onMove = (e: PointerEvent) => {
@@ -167,7 +167,7 @@ export default function CommandCenter({ panels }: { panels: Record<StationId, Re
       >
         <Space active={idx} />
         <Overhead />
-        <main className="ring">
+        <main className="bridge-ring">
           {STATIONS.map((s, i) => {
             const rel = i - idx;
             return (
