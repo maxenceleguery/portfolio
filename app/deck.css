@@ -9,27 +9,23 @@
   --top-h: 46px;
   --deck-h: 148px;
   --ease: cubic-bezier(0.65, 0, 0.35, 1);
-  --px: 0;
-  --py: 0;
   position: fixed;
   inset: 0;
-  overflow: hidden;
+  overflow: clip; /* never scrollable, even when something inside calls focus() */
   background: #02060b;
   isolation: isolate;
 }
 
 /* ---------- outside the window ---------- */
 
-.space { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
+.space { position: absolute; inset: 0; z-index: 0; overflow: clip; }
 .space-view {
   position: absolute;
   inset: -4% -9%;
-  transform:
-    translateX(calc((var(--active) - 2.5) * -2.4%))
-    translate(calc(var(--px) * -14px), calc(var(--py) * -9px));
-  transition: transform 1.1s var(--ease);
+  /* pan per station is set inline by <Space>; parallax via `translate` from the ring */
+  transition: transform 1.1s var(--ease), translate 0.25s ease-out;
 }
-.space-view video { width: 100%; height: 100%; object-fit: cover; object-position: 50% 42%; opacity: 0.92; }
+.space-view video, .space-view img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 42%; opacity: 0.92; }
 .space::after {
   content: "";
   position: absolute;
@@ -95,7 +91,7 @@
   right: 0;
   perspective: 1500px;
   perspective-origin: 50% 40%;
-  transform: translate(calc(var(--px) * 5px), calc(var(--py) * 3px));
+  transition: translate 0.25s ease-out;
 }
 .station {
   --w: min(1200px, 76vw);
@@ -105,16 +101,36 @@
   left: calc(50% - var(--w) / 2);
   width: var(--w);
   transform-origin: 50% 50%;
-  transition: transform 1s var(--ease), opacity 0.8s var(--ease), filter 0.8s var(--ease);
+  transition: transform 1s var(--ease), opacity 0.8s var(--ease), visibility 0s linear 1s;
+  /* kept on their own layers, pre-rastered: a turn is then pure compositing */
+  will-change: transform, opacity;
+  contain: layout style;
 }
+.station[data-rel="0"], .station[data-rel="1"], .station[data-rel="-1"] { transition-delay: 0s, 0s, 0s; }
 .station[data-rel="0"] { transform: none; z-index: 3; }
-.station[data-rel="-1"] { transform: translateX(-94%) translateZ(-460px) rotateY(40deg); opacity: 0.6; filter: brightness(0.55) saturate(0.7); z-index: 2; }
-.station[data-rel="1"] { transform: translateX(94%) translateZ(-460px) rotateY(-40deg); opacity: 0.6; filter: brightness(0.55) saturate(0.7); z-index: 2; }
-.station[data-rel="-2"] { transform: translateX(-150%) translateZ(-1000px) rotateY(58deg); opacity: 0; z-index: 1; }
-.station[data-rel="2"] { transform: translateX(150%) translateZ(-1000px) rotateY(-58deg); opacity: 0; z-index: 1; }
+.station[data-rel="-1"] { transform: translateX(-94%) translateZ(-460px) rotateY(40deg); opacity: 0.7; z-index: 2; }
+.station[data-rel="1"] { transform: translateX(94%) translateZ(-460px) rotateY(-40deg); opacity: 0.7; z-index: 2; }
+.station[data-rel="-2"] { transform: translateX(-150%) translateZ(-1000px) rotateY(58deg); opacity: 0; visibility: hidden; z-index: 1; }
+.station[data-rel="2"] { transform: translateX(150%) translateZ(-1000px) rotateY(-58deg); opacity: 0; visibility: hidden; z-index: 1; }
 .station[data-rel="far-left"] { transform: translateX(-190%) translateZ(-1400px) rotateY(70deg); opacity: 0; visibility: hidden; }
 .station[data-rel="far-right"] { transform: translateX(190%) translateZ(-1400px) rotateY(-70deg); opacity: 0; visibility: hidden; }
-.station[data-rel="-1"]:hover, .station[data-rel="1"]:hover { filter: brightness(0.75) saturate(0.85); }
+.station::after {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: 18px;
+  background: #02060b;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.8s var(--ease);
+}
+.station[data-rel="-1"]::after, .station[data-rel="1"]::after { opacity: 0.5; }
+.station[data-rel="-1"]:hover::after, .station[data-rel="1"]:hover::after { opacity: 0.3; }
+/* off-camera stations: nothing ticks. Targeted on purpose: a universal descendant
+   selector here would restyle every element of every station on each turn. */
+.station:not([data-rel="0"]) :is(.st-leds i, .orbit, .billboard, .holo, .signal i, .caret, .nlamp, .still, .feed) { animation-play-state: paused; }
+.station:not([data-rel="0"]) .holo::after { animation-play-state: paused; }
+.station:not([data-rel="0"]) .pk { display: none; }
 
 .station-hit { position: absolute; inset: 0; z-index: 10; background: transparent; border: 0; cursor: pointer; }
 
@@ -129,7 +145,7 @@
   box-shadow:
     0 0 0 5px #0a1522,
     0 0 0 6px var(--line),
-    0 40px 90px rgb(0 0 0 / 0.65),
+    0 30px 60px rgb(0 0 0 / 0.6),
     inset 0 1px 0 rgb(255 255 255 / 0.06);
 }
 /* four bolts in the bezel */
@@ -268,7 +284,7 @@
   position: absolute;
   inset: 0 0 12% 0;
   transform-style: preserve-3d;
-  transform: rotateX(62deg) rotateZ(calc(var(--px) * 6deg));
+  transform: rotateX(62deg);
 }
 .core {
   position: absolute;
@@ -363,6 +379,12 @@
 .channel { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; margin-top: 26px; }
 .channel-label { font: 0.62rem var(--f-mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--amber); }
 .fine-print { margin: 8px 0 0; font-size: 0.75rem; color: #58708a; }
+
+.holo-topology { position: absolute; inset: 0; }
+/* once the hologram is up, the SVG stays for screen readers but leaves the screen */
+.infra:has(.holo-topology[data-mounted="true"]) svg { opacity: 0; }
+.holo-topology .holo-label { font-family: var(--f-text); text-shadow: 0 0 8px rgb(95 212 230 / 0.6); }
+.holo-topology .holo-sub { font-family: var(--f-mono); }
 
 /* ---------- control deck ---------- */
 
@@ -514,8 +536,7 @@
   inset: 0;
   z-index: 40;
   pointer-events: none;
-  background: repeating-linear-gradient(to bottom, rgb(255 255 255 / 0.022) 0 1px, transparent 1px 3px);
-  mix-blend-mode: overlay;
+  background: repeating-linear-gradient(to bottom, rgb(0 0 0 / 0.16) 0 1px, transparent 1px 3px);
 }
 
 .cc[data-boot="on"] .station-frame { animation: power 0.9s var(--ease) both; animation-delay: calc(0.25s + var(--i) * 0.11s); }
@@ -550,7 +571,9 @@
   .overhead .status { margin-left: auto; }
   .ring { top: var(--top-h); bottom: var(--deck-h); perspective: none; transform: none; }
   .station { --w: 100vw; left: 0; }
-  .station[data-rel] { transform: none; filter: none; }
+  .station[data-rel] { transform: none; }
+  .station { will-change: auto; }
+  .station::after { display: none; }
   .station:not([data-rel="0"]) { opacity: 0; visibility: hidden; transform: translateX(calc(var(--dir, 1) * 12%)); }
   .station[data-rel^="-"], .station[data-rel="far-left"] { --dir: -1; }
   .station-frame { border-radius: 0; border: 0; box-shadow: none; }

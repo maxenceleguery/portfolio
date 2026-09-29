@@ -25,6 +25,8 @@ export default function CutforgeEditor() {
           ok: "#6be38a",
         },
       }}
+      // fill the screen it's mounted in rather than the viewport
+      customCss=".cutforge-root, .cutforge-root .app { height: 100% !important; }"
       preset={{
         media: [
           { url: "/media/blackhole-loop.mp4", name: "Kerr black hole" },

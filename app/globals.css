@@ -5,7 +5,9 @@
   amber = instrument light (brand, primary action), cyan = selectable (links,
   controls), green = nominal (live systems). Paper is the printed dossier.
 */
-:root {
+/* html:root / html body outrank a plain :root / body from third-party CSS (the
+   Cutforge editor stylesheet leaks both), whatever order they load in */
+html:root {
   --hull: #0d1b2a;
   --hull-deep: #08131f;
   --panel: #11243a;
@@ -39,7 +41,7 @@ html {
   background: var(--hull);
 }
 
-body {
+html body {
   margin: 0;
   background: var(--hull);
   color: var(--ink);
@@ -110,7 +112,7 @@ a { color: inherit; }
 
 .screen {
   position: relative;
-  overflow: hidden;
+  overflow: clip; /* clip, not hidden: embedded widgets can't scroll it by focusing */
   border-radius: 10px;
   background: var(--hull-deep);
   box-shadow: inset 0 0 0 1px var(--line), 0 0 0 4px var(--panel), 0 0 0 5px var(--line);

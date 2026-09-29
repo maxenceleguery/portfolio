@@ -120,23 +120,29 @@ export default function CommandCenter({ panels }: { panels: Record<StationId, Re
     return () => removeEventListener("keydown", onKey);
   }, [active, go]);
 
-  // pointer parallax on the view outside and the ring
+  // Pointer parallax on the view outside and the ring. Written straight to the
+  // `translate` property of two elements: an inherited CSS variable on the root
+  // would restyle the whole ship on every mouse move.
   useEffect(() => {
-    const el = root.current;
-    if (!el || !motion) return;
+    const view = root.current?.querySelector<HTMLElement>(".space-view");
+    const ring = root.current?.querySelector<HTMLElement>(".ring");
+    if (!view || !ring || !motion) return;
     let raf = 0;
     const onMove = (e: PointerEvent) => {
       if (e.pointerType !== "mouse") return;
       cancelAnimationFrame(raf);
       raf = requestAnimationFrame(() => {
-        el.style.setProperty("--px", ((e.clientX / innerWidth) * 2 - 1).toFixed(3));
-        el.style.setProperty("--py", ((e.clientY / innerHeight) * 2 - 1).toFixed(3));
+        const x = (e.clientX / innerWidth) * 2 - 1;
+        const y = (e.clientY / innerHeight) * 2 - 1;
+        view.style.translate = `${(x * -14).toFixed(1)}px ${(y * -9).toFixed(1)}px`;
+        ring.style.translate = `${(x * 5).toFixed(1)}px ${(y * 3).toFixed(1)}px`;
       });
     };
     addEventListener("pointermove", onMove);
     return () => {
       removeEventListener("pointermove", onMove);
       cancelAnimationFrame(raf);
+      view.style.translate = ring.style.translate = "";
     };
   }, [motion]);
 
@@ -158,9 +164,8 @@ export default function CommandCenter({ panels }: { panels: Record<StationId, Re
         data-motion={motion ? "on" : "off"}
         data-scan={scan ? "on" : "off"}
         data-boot={boot ? "on" : "off"}
-        style={{ "--active": idx } as CSSProperties}
       >
-        <Space />
+        <Space active={idx} />
         <Overhead />
         <main className="ring">
           {STATIONS.map((s, i) => {
