@@ -29,7 +29,7 @@ function Feed({ m, powered, onPower, live }: { m: Mission; powered: boolean; onP
   }
   if (s.kind === "stills") {
     return (
-      <div className="stills">
+      <div className="stills" data-n={s.stills.length}>
         {s.stills.map((st) => (
           <figure className="still" key={st.src}>
             {/* eslint-disable-next-line @next/next/no-img-element */}

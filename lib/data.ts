@@ -349,6 +349,41 @@ export const MISSIONS: Mission[] = [
       ],
     },
   },
+  {
+    id: "pathtracer",
+    name: "CUDA path tracer",
+    short: "Path tracer",
+    kicker: "A GPU path tracer written from scratch in C++ and CUDA",
+    status: "launching",
+    statusLabel: "In development",
+    year: "2023",
+    role: "Solo: renderer, BVH, materials, tooling",
+    summary:
+      "Started in 2023 as a raytracer during my studies, rebuilt clean-room as a CUDA path tracer: multiple importance sampling over a two-level BVH, physically based materials and a real lens model. No third-party code in the compute core; libpng and SDL2 are the only dependencies. Every image on this screen came out of it, on a laptop RTX 3060.",
+    figures: [
+      { value: "1.44 G", label: "path samples per second, showcase scene" },
+      { value: "3.1×", label: "megakernel over a wavefront split, measured" },
+      { value: "211 s", label: "for the helmet at 1024 samples per pixel" },
+    ],
+    notes: [
+      "Binned-SAH two-level BVH (TLAS/BLAS instancing) over a structure-of-arrays scene; megakernel path tracing with multiple importance sampling.",
+      "Materials: diffuse, metal, glossy, dielectric and rough dielectric, thin film, anisotropic, clearcoat, Beer-Lambert coloured glass, multi-scatter compensation, spectral dispersion.",
+      "Importance-sampled environment lighting, participating media (height fog, noise clouds by delta tracking) and a physical lens: thin-lens depth of field, polygonal bokeh, chromatic aberration.",
+      "glTF loader with its own baseline-JPEG decoder: the helmet on screen is fully textured, emissive HUD included.",
+      "Built test-first: each feature lands behind a failing test and a byte-identical 'feature off' check. A wavefront rewrite lost to the megakernel on measurement, so it's documented, not shipped.",
+    ],
+    stack: ["C++20", "CUDA", "BVH", "Monte Carlo", "glTF", "libpng", "SDL2"],
+    links: [{ label: "v1 source on GitHub", href: "https://github.com/maxenceleguery/3d-render-engine" }],
+    screen: {
+      kind: "stills",
+      stills: [
+        { src: "/media/pathtracer-helmet_gltf.webp", alt: "Path-traced DamagedHelmet glTF model with glowing HUD" },
+        { src: "/media/pathtracer-glass_beer_lambert.webp", alt: "Coloured glass spheres with Beer-Lambert absorption" },
+        { src: "/media/pathtracer-dispersion.webp", alt: "Glass spheres showing spectral dispersion fringes" },
+        { src: "/media/pathtracer-showcase_spheres.webp", alt: "Showcase scene: diffuse, glass and metal spheres" },
+      ],
+    },
+  },
 ];
 
 export const ARCHIVE: ArchivedProject[] = [
@@ -381,7 +416,7 @@ export const ARCHIVE: ArchivedProject[] = [
   },
   {
     id: "raytracer",
-    title: "C++ raytracer engine",
+    title: "C++ raytracer engine, first version",
     description:
       "A realistic 3D renderer with raytracing built from scratch using C++. Features CUDA acceleration for massive performance improvements and real-time rendering capabilities.",
     features: [
