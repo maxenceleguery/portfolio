@@ -1,26 +1,28 @@
-import Navigation from "@/components/Navigation";
+import TopBar from "@/components/TopBar";
 import Hero from "@/components/Hero";
-import About from "@/components/About";
-import Experiences from "@/components/Experiences";
-import Skills from "@/components/Skills";
-import Projects from "@/components/Projects";
-import Papers from "@/components/Papers";
+import Missions from "@/components/Missions";
+import Infra from "@/components/Infra";
+import Workbench from "@/components/Workbench";
+import Log from "@/components/Log";
 import Contact from "@/components/Contact";
-import Footer from "@/components/Footer";
 
 export default function Home() {
-
   return (
-    <div className="font-sans bg-black text-white">
-      <Navigation />
-      <Hero />
-      <About />
-      <Experiences />
-      <Skills />
-      <Projects />
-      <Papers />
-      <Contact />
-      <Footer />
-    </div>
+    <>
+      <TopBar />
+      <main>
+        <Hero />
+        <Missions />
+        <Infra />
+        <Workbench />
+        <Log />
+        <Contact />
+      </main>
+      <footer className="footer">
+        <div className="wrap">
+          © {new Date().getFullYear()} Maxence Leguéry. A static Next.js export, served by nginx from a VPS I run.
+        </div>
+      </footer>
+    </>
   );
 }

@@ -1,39 +1,31 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Archivo, Martian_Mono, Michroma } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+const michroma = Michroma({ weight: "400", subsets: ["latin"], variable: "--font-michroma" });
+const archivo = Archivo({ subsets: ["latin"], axes: ["wdth"], variable: "--font-archivo" });
+const martian = Martian_Mono({ subsets: ["latin"], variable: "--font-martian" });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const title = "Maxence Leguéry, freelance engineer: products, AI and cloud";
+const description =
+  "Freelance engineer in Paris. I build web, mobile and AI products and run the cloud infrastructure under them (Terraform, GCP, AWS). Recent work: Relevé, Adenor, Cutforge, Buddy AI Note.";
 
 export const metadata: Metadata = {
-  title: "Maxence Leguéry - Portfolio | Machine Learning & Software Engineer",
-  description: "Freelance AI & software engineer in Paris — machine learning, full-stack, and developer tools. Recent work: Buddy AI Note and Cutforge (browser video editor SDK).",
+  title,
+  description,
   authors: [{ name: "Maxence Leguéry" }],
-  keywords: ["Maxence Leguéry", "portfolio", "freelance AI engineer", "machine learning", "ENSTA Paris", "Podtech", "Buddy AI Note", "Cutforge", "video editor SDK", "deep learning", "AI", "Next.js"],
+  keywords: ["Maxence Leguéry", "freelance engineer", "freelance CTO", "Terraform", "GCP", "AWS", "machine learning", "Next.js", "React Native", "ENSTA Paris", "Relevé", "Adenor", "Cutforge", "Buddy AI Note"],
   metadataBase: new URL("https://maxenceleguery.net"),
-  alternates: {
-    canonical: "https://maxenceleguery.net",
-  },
+  alternates: { canonical: "https://maxenceleguery.net" },
   openGraph: {
-    title: "Maxence Leguéry - Portfolio | Machine Learning & Software Engineer",
-    description: "Freelance AI & software engineer in Paris — machine learning, full-stack, and developer tools. Recent work: Buddy AI Note and Cutforge (browser video editor SDK).",
+    title,
+    description,
     url: "https://maxenceleguery.net",
-    siteName: "Maxence Leguéry Portfolio",
+    siteName: "Maxence Leguéry",
     locale: "en_US",
     type: "website",
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "Maxence Leguéry - Portfolio | Machine Learning & Software Engineer",
-    description: "Freelance AI & software engineer in Paris — machine learning, full-stack, and developer tools. Recent work: Buddy AI Note and Cutforge (browser video editor SDK).",
-  },
+  twitter: { card: "summary_large_image", title, description },
   robots: {
     index: true,
     follow: true,
@@ -53,7 +45,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${michroma.variable} ${archivo.variable} ${martian.variable}`}>
       <head>
         {/* Google Tag Manager */}
         <script
@@ -68,45 +60,41 @@ export default function RootLayout({
         {/* End Google Tag Manager */}
 
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="preload" as="image" href="/background.webp" fetchPriority="high" />
+        <meta name="theme-color" content="#0d1b2a" />
+        <link rel="preload" as="image" href="/media/blackhole-poster.jpg" fetchPriority="high" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Person",
-              "name": "Maxence Leguéry",
-              "jobTitle": "Freelance AI Engineer",
-              "worksFor": {
-                "@type": "Organization",
-                "name": "Podtech",
-                "url": "https://podtech.tech/"
-              },
-              "alumniOf": {
-                "@type": "Organization",
-                "name": "ENSTA Paris",
-                "url": "https://www.ensta-paris.fr/"
-              },
-              "url": "https://maxenceleguery.net",
-              "sameAs": [
-                "https://github.com/maxenceleguery",
-                "https://www.linkedin.com/in/maxence-leguery"
-              ],
-              "knowsAbout": [
+              name: "Maxence Leguéry",
+              jobTitle: "Freelance engineer",
+              worksFor: { "@type": "Organization", name: "Podtech", url: "https://podtech.tech/" },
+              alumniOf: { "@type": "Organization", name: "ENSTA Paris", url: "https://www.ensta-paris.fr/" },
+              url: "https://maxenceleguery.net",
+              email: "mailto:maxence.leguery@gmail.com",
+              sameAs: ["https://github.com/maxenceleguery", "https://www.linkedin.com/in/maxence-leguery"],
+              knowsAbout: [
                 "Machine Learning",
                 "Deep Learning",
-                "Artificial Intelligence",
                 "Full-stack Engineering",
+                "Cloud Infrastructure",
+                "Terraform",
+                "Google Cloud Platform",
+                "Amazon Web Services",
                 "Next.js",
-                "TypeScript"
+                "React Native",
+                "TypeScript",
+                "Rust",
               ],
-              "description": "Freelance AI engineer building production AI products end to end, currently shipping Buddy AI Note with Podtech."
-            })
+              description:
+                "Freelance engineer building web, mobile and AI products end to end, and the cloud infrastructure they run on. CTO for Podtech.",
+            }),
           }}
         />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        
+      <body>
         {/* Google Tag Manager (noscript) */}
         <noscript>
           <iframe

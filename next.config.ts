@@ -5,7 +5,11 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true, // Disable default image optimization
   },
-  output: 'export'
+  output: 'export',
+  turbopack: {
+    // runtime-safe copy of the SDK, see scripts/vendor-cutforge.mjs
+    resolveAlias: { "@cutforge/editor": "./vendor/cutforge/cutforge.js" },
+  },
 };
 
 export default nextConfig;
