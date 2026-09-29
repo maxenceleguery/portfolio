@@ -665,6 +665,7 @@ a { color: inherit; }
 .caret { display: inline-block; width: 0.6em; height: 1.1em; vertical-align: -0.2em; background: var(--amber); animation: caret 1s steps(1) infinite; }
 @keyframes caret { 50% { opacity: 0; } }
 .term[data-active="true"] .screen-bar { color: var(--ink); }
+.term[data-idle="true"] .term-body { opacity: 0.38; transition: opacity 0.4s; }
 
 .stack-list { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 24px; margin: 44px 0 0; }
 .stack-list dt { font-weight: 600; margin-bottom: 8px; }

@@ -47,8 +47,9 @@ export default function Workbench() {
       <div className="terminals" ref={ref}>
         {TERMINALS.map((t, s) => {
           const active = pos?.s === s;
+          const idle = !!pos && s > pos.s; // waiting its turn: keeps its last session, dimmed
           return (
-            <div className="screen term" key={t.title} data-active={active}>
+            <div className="screen term" key={t.title} data-active={active} data-idle={idle}>
               <div className="screen-bar">
                 <span className="lamp" data-state={active ? "launching" : "idle"} aria-hidden="true" />
                 <span className="grow">{t.title}</span>
@@ -56,8 +57,8 @@ export default function Workbench() {
               </div>
               <pre className="term-body" aria-label={`${t.tool}: ${t.title}`}>
                 {t.lines.map((line, l) => {
-                  if (!pos || s < pos.s) return <Line key={l} line={line} chars={line.text.length} caret={false} />;
-                  if (s > pos.s || l > pos.l) return null;
+                  if (!pos || s !== pos.s) return <Line key={l} line={line} chars={line.text.length} caret={false} />;
+                  if (l > pos.l) return null;
                   return <Line key={l} line={line} chars={l < pos.l ? line.text.length : pos.c} caret={l === pos.l} />;
                 })}
               </pre>
