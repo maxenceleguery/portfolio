@@ -354,8 +354,8 @@ export const MISSIONS: Mission[] = [
     name: "CUDA path tracer",
     short: "Path tracer",
     kicker: "A GPU path tracer written from scratch in C++ and CUDA",
-    status: "launching",
-    statusLabel: "In development",
+    status: "live",
+    statusLabel: "Operational",
     year: "2023",
     role: "Solo: renderer, BVH, materials, tooling",
     summary:
