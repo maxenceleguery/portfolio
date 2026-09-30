@@ -311,7 +311,7 @@
   animation: orbit var(--t) linear infinite;
   animation-delay: var(--d);
 }
-.body { position: absolute; left: 100%; top: 50%; width: 0; height: 0; transform-style: preserve-3d; }
+.orbit > .body { position: absolute; left: 100%; top: 50%; width: 0; height: 0; transform-style: preserve-3d; }
 .billboard { transform-style: preserve-3d; animation: counter var(--t) linear infinite; animation-delay: var(--d); }
 @keyframes orbit { from { transform: rotateZ(0deg); } to { transform: rotateZ(360deg); } }
 @keyframes counter { from { transform: rotateZ(0deg) rotateX(-62deg); } to { transform: rotateZ(-360deg) rotateX(-62deg); } }
