@@ -457,7 +457,7 @@ a { color: inherit; }
   filter: blur(28px) brightness(0.35) saturate(0.8);
   transform: scale(1.15);
 }
-.still-fg {
+.still-fg, .still video {
   position: absolute;
   inset: 22px;
   width: calc(100% - 44px);

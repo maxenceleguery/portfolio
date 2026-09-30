@@ -41,6 +41,17 @@ function Feed({ m, powered, onPower, live }: { m: Mission; powered: boolean; onP
       </div>
     );
   }
+  if (s.kind === "video") {
+    return (
+      <div className="stills">
+        <figure className="still">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img className="still-bg" src={s.poster} alt="" aria-hidden="true" />
+          <AutoVideo src={s.src} poster={s.poster} label={s.alt} play={live} />
+        </figure>
+      </div>
+    );
+  }
   const [left, ...rest] = s.stills;
   return (
     <div className="phones">

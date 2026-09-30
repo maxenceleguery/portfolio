@@ -29,6 +29,7 @@ export interface Language {
 export type MissionScreen =
   | { kind: "phones"; video?: { src: string; poster: string }; stills: { src: string; alt: string }[] }
   | { kind: "stills"; stills: { src: string; alt: string }[] }
+  | { kind: "video"; src: string; poster: string; alt: string }
   | { kind: "cutforge"; poster: string };
 
 export interface Mission {
@@ -374,13 +375,10 @@ export const MISSIONS: Mission[] = [
     stack: ["C++20", "CUDA", "BVH", "Monte Carlo", "glTF", "libpng", "SDL2"],
     links: [{ label: "v1 source on GitHub", href: "https://github.com/maxenceleguery/3d-render-engine" }],
     screen: {
-      kind: "stills",
-      stills: [
-        { src: "/media/pathtracer-helmet_gltf.webp", alt: "Path-traced DamagedHelmet glTF model with glowing HUD" },
-        { src: "/media/pathtracer-glass_beer_lambert.webp", alt: "Coloured glass spheres with Beer-Lambert absorption" },
-        { src: "/media/pathtracer-dispersion.webp", alt: "Glass spheres showing spectral dispersion fringes" },
-        { src: "/media/pathtracer-showcase_spheres.webp", alt: "Showcase scene: diffuse, glass and metal spheres" },
-      ],
+      kind: "video",
+      src: "/media/pathtracer-helmet-turntable.mp4",
+      poster: "/media/pathtracer-helmet-turntable-poster.webp",
+      alt: "Path-traced DamagedHelmet glTF model turning 360 degrees, glowing HUD included",
     },
   },
 ];
