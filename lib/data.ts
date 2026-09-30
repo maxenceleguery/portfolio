@@ -199,9 +199,8 @@ export const LANGUAGES: Language[] = [
   { name: "Japanese", level: "Basic" },
 ];
 
-// TODO: paste Relevé's App Store URL (https://apps.apple.com/fr/app/.../id...). It isn't
-// indexed by Apple's lookup API yet; the link appears as soon as this is set.
-const RELEVE_APP_STORE = "";
+// No country segment: apps.apple.com redirects each visitor to their own storefront.
+const RELEVE_APP_STORE = "https://apps.apple.com/app/releve-chasse-aux-routes/id6814241105";
 
 export const MISSIONS: Mission[] = [
   {
