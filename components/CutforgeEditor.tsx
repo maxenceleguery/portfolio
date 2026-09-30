@@ -25,9 +25,6 @@ export default function CutforgeEditor() {
           ok: "#6be38a",
         },
       }}
-      // fill the screen it's mounted in rather than the viewport; the timeline scales with
-      // that screen instead of its fixed 360 px (ponytail: drop once Cutforge ships the same rule)
-      customCss=".cutforge-root, .cutforge-root .app { height: 100% !important; } .cutforge-root .app { container-type: size; } .cutforge-root .timeline { height: clamp(140px, 40cqh, 360px); min-height: 120px; }"
       preset={{
         media: [
           { url: "/media/blackhole-loop.mp4", name: "Kerr black hole" },

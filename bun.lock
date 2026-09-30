@@ -5,7 +5,7 @@
     "": {
       "name": "portfolio",
       "dependencies": {
-        "@cutforge/editor": "^1.1.1",
+        "@cutforge/editor": "^1.2.0",
         "next": "^16.2.6",
         "react": "^19.2.6",
         "react-dom": "^19.2.6",
@@ -63,7 +63,7 @@
 
     "@babel/types": ["@babel/types@7.29.0", "", { "dependencies": { "@babel/helper-string-parser": "^7.27.1", "@babel/helper-validator-identifier": "^7.28.5" } }, "sha512-LwdZHpScM4Qz8Xw2iKSzS+cfglZzJGvofQICy7W7v4caru4EaAmyUuO6BGrbyQ2mYV11W0U8j5mBhd14dd3B0A=="],
 
-    "@cutforge/editor": ["@cutforge/editor@1.1.1", "", { "peerDependencies": { "react": "^18.3.0 || ^19.0.0", "react-dom": "^18.3.0 || ^19.0.0" } }, "sha512-xHYW4yHk8W3HDh34SwaWU7ksOy6vQJx0kI0VUpGxvzjTRTiHf/G3j+8YQp0dwzgoMcEtSZQuue+cD0faSeZ6aA=="],
+    "@cutforge/editor": ["@cutforge/editor@1.2.0", "", { "peerDependencies": { "react": "^18.3.0 || ^19.0.0", "react-dom": "^18.3.0 || ^19.0.0" } }, "sha512-s8IZ0Fh9G1O6ITQT9gDvXCo22n0tRRDudOhe3ewTHfqUh63cCrVCC+7f3uyhtj/6zgEOvZb3CWFd3DLkikYCRQ=="],
 
     "@dimforge/rapier3d-compat": ["@dimforge/rapier3d-compat@0.12.0", "", {}, "sha512-uekIGetywIgopfD97oDL5PfeezkFpNhwlzlaEYNOA0N6ghdsOvh/HYjSMek5Q2O1PYvRSDFcqFVJl4r4ZBwOow=="],
 
