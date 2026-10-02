@@ -74,7 +74,7 @@ export interface Terminal {
 
 export const BIRTH_DATE = "2001-09-23";
 
-export const EMAIL = "maxence.leguery@gmail.com";
+export const EMAIL = "contact@maxenceleguery.net";
 export const LINKEDIN = "https://www.linkedin.com/in/maxence-leguery/";
 export const GITHUB = "https://github.com/maxenceleguery";
 
