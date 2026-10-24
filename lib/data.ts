@@ -308,7 +308,7 @@ export const MISSIONS: Mission[] = [
       "GCP in Terraform: Cloud Run services, a GPU VM for a self-hosted LLM, an embeddings service, Memorystore and HTTPS load balancing. CI deploys through keyless Workload Identity; secrets live in a self-hosted Infisical.",
     ],
     stack: ["Next.js", "Expo", "TypeScript", "Supabase", "PostgreSQL", "OpenAI", "BullMQ", "Redis", "Terraform", "GCP"],
-    links: [{ label: "cal.podtech-ai.com", href: "https://cal.podtech-ai.com" }],
+    links: [{ label: "ainote.tech", href: "https://ainote.tech" }],
     screen: {
       kind: "phones",
       stills: [
@@ -399,19 +399,6 @@ export const ARCHIVE: ArchivedProject[] = [
     siteUrl: "https://parts.podtech-ai.com/",
   },
   {
-    id: "tabichan",
-    title: "Tabichan, an AI-driven travel planner",
-    description:
-      "Tabichan brings your travel ideas to life. Easily find the best travel experiences by chatting with Tabichan.",
-    features: [
-      "Simply ask Tabichan where you want to go, what you want to do, or even just how you're feeling.",
-      "Tabichan instantly suggests unique tourist spots you've never seen before, tailored to your preferences.",
-      "Choose your favorite plan, book, and enjoy the best trip ever!",
-    ],
-    technologies: ["Python Smolagents", "Agentic AI", "NextJS", "React", "Docker", "AWS"],
-    siteUrl: "https://podtech-ai.com",
-  },
-  {
     id: "raytracer",
     title: "C++ raytracer engine, first version",
     description:
@@ -427,22 +414,6 @@ export const ARCHIVE: ArchivedProject[] = [
     ],
     technologies: ["C++", "CUDA", "SDL2", "OpenGL", "Linear Algebra", "Computer Graphics"],
     githubUrl: "https://github.com/maxenceleguery/3d-render-engine",
-  },
-  {
-    id: "fixmatch",
-    title: "FixMatch algorithm implementation",
-    description:
-      "Implementation of the FixMatch semi-supervised learning algorithm for training ML models with limited labeled data by leveraging pseudolabeling on unlabeled examples.",
-    features: [
-      "Semi-supervised learning implementation",
-      "Pseudolabeling for data augmentation",
-      "Consistency regularization techniques",
-      "State-of-the-art performance on benchmark datasets",
-      "Comprehensive evaluation metrics",
-    ],
-    technologies: ["Python", "PyTorch", "Machine Learning", "Semi-Supervised Learning", "Data Augmentation"],
-    githubUrl: "https://github.com/maxenceleguery/ENSTA_courses/tree/master/MI201",
-    reference: { title: "FixMatch: Simplifying Semi-Supervised Learning", url: "https://arxiv.org/abs/2001.07685" },
   },
   {
     id: "tetris",
@@ -513,7 +484,7 @@ export const STACK: { group: string; items: string[] }[] = [
 
 export const TERMINALS: Terminal[] = [
   {
-    title: "fixmatch/train.py",
+    title: "train.py",
     tool: "PyTorch",
     lines: [
       { kind: "code", text: "# keep only the confident pseudo-labels" },
