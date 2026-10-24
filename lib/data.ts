@@ -201,7 +201,7 @@ export const LANGUAGES: Language[] = [
 ];
 
 // No country segment: apps.apple.com redirects each visitor to their own storefront.
-const RELEVE_APP_STORE = "https://apps.apple.com/app/releve-chasse-aux-routes/id6814241105";
+const RELEVE_APP_STORE = "https://apps.apple.com/fr/app/relev%C3%A9-chasse-aux-routes/id6814241105";
 
 export const MISSIONS: Mission[] = [
   {
@@ -209,7 +209,7 @@ export const MISSIONS: Mission[] = [
     name: "Relevé",
     kicker: "A road-collecting game for France",
     status: "live",
-    statusLabel: "App Store, Play in review",
+    statusLabel: "App Store, Google Play",
     year: "2026",
     role: "Solo: product, design, mobile, backend, ops",
     summary:
@@ -229,7 +229,7 @@ export const MISSIONS: Mission[] = [
     links: [
       { label: "releve.maxenceleguery.net", href: "https://releve.maxenceleguery.net" },
       ...(RELEVE_APP_STORE ? [{ label: "App Store", href: RELEVE_APP_STORE }] : []),
-      { label: "Google Play (in review)", href: "https://play.google.com/store/apps/details?id=net.maxenceleguery.releve" },
+      { label: "Google Play", href: "https://play.google.com/store/apps/details?id=net.maxenceleguery.releve" },
     ],
     screen: {
       kind: "phones",
